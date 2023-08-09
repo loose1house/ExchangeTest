@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exchange</title>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="main_exchange_header header">
+        <div class="header_currency-description-from">
+          <span>1</span>
+          <p id="header-currency-description"></p>
+          <span>equals</span>
+        </div>
+        <div class="header_currency-value-to">
+          <p class="" id="header-currency-value">0.9</p>
+          <p id="header-currency-symbol"></p>
+        </div>
+        <div class="header_date" id="header_date"></div>
+      </div>
+      <div class="main_exchange_body main">
+        <div class="main_currency-from-line">
+          <input
+            min="0"
+            type="number"
+            class="main_currency-from-value"
+            id="main_currency-from-value"
+          />
+          <select name="currency" id="main_currency-from"></select>
+        </div>
+        <div class="main_currency-to-line">
+          <input type="number" id="main_currency-to-value" min="0" />
+          <select name="currency" id="main_currency-to"></select>
+        </div>
+      </div>
+    </div>
+
+    <script src="script/script.js"></script>
+  </body>
+</html>
