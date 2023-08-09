@@ -41,10 +41,19 @@ const updateUI = (id, value) => {
   document.getElementById(id).value = value;
 };
 
-const currencyChanged = () => {
+const currencyChanged = async () => {
+  listRates = await getRates();
   bodyData.rate =
     listRates[bodyData.toCurrency] / listRates[bodyData.fromCurrency];
   valueFromChanged();
+
+  headerData = {
+    ...headerData,
+    currencyDesc: listSymbols[bodyData.fromCurrency],
+    currencySymbolTo: listSymbols[bodyData.toCurrency],
+    toValue: bodyData.rate.toFixed(4),
+  };
+  updateHeaderUI();
 };
 
 const currencyFromChanged = (event) => {
@@ -56,7 +65,8 @@ const currencyToChanged = (event) => {
   currencyChanged();
 };
 
-const valueFromChangedEvent = (event) => {
+const valueFromChangedEvent = async (event) => {
+  listRates = await getRates();
   bodyData.fromValue = event.target.value;
   valueFromChanged();
 };
@@ -64,9 +74,11 @@ const valueFromChangedEvent = (event) => {
 const valueFromChanged = () => {
   bodyData.toValue = bodyData.fromValue * bodyData.rate;
   updateUI("main_currency-to-value", bodyData.toValue);
+  updateDateUI();
 };
 
-const valueToChangedEvent = (event) => {
+const valueToChangedEvent = async (event) => {
+  listRates = await getRates();
   bodyData.toValue = event.target.value;
   valueToChanged();
 };
@@ -74,6 +86,7 @@ const valueToChangedEvent = (event) => {
 const valueToChanged = () => {
   bodyData.fromValue = bodyData.toValue * (1 / bodyData.rate);
   updateUI("main_currency-from-value", bodyData.fromValue);
+  updateDateUI();
 };
 
 const getSymbols = async () => {
@@ -84,9 +97,7 @@ const getSymbols = async () => {
 
 const setError = (err) => {
   bodyData.error = err;
-  document.getElementById("error-message").style.display = err
-    ? "block"
-    : "none";
+  document.getElementById("myPopup").style.display = err ? "block" : "none";
 };
 
 const getRates = async () => {
@@ -96,7 +107,17 @@ const getRates = async () => {
 };
 
 const updateDateUI = () => {
-  headerData.date = new Date();
+  const date = new Date();
+  const options = {
+    month: "long",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    timeZone: "UTC",
+    timeZoneName: "short",
+  };
+  headerData.date = date.toLocaleDateString("en-US", options);
+  document.getElementById("header_date").textContent = headerData.date;
 };
 
 const getApiValues = async () => {
@@ -112,38 +133,40 @@ const setListSymbols = (_listSymbols) => {
 };
 const setListRates = (_listRates) => {
   listRates = _listRates;
+  if (listSymbols) {
+    headerData = {
+      currencyDesc: listSymbols[Object.keys(listRates)[0]],
+      currencySymbolTo: Object.keys(listRates)[0],
+      toValue: 1,
+      date: "date",
+    };
 
-  headerData = {
-    currencyDesc: listSymbols[Object.keys(listRates)[0]],
-    currencySymbolTo: Object.keys(listRates)[0],
-    toValue: 1,
-    date: "date",
-  };
-
-  bodyData = {
-    fromValue: 1,
-    fromCurrency: Object.keys(listRates)[0],
-    toValue: 1,
-    toCurrency: Object.keys(listRates)[0],
-    rate: 1,
-  };
-
+    bodyData = {
+      fromValue: 1,
+      fromCurrency: Object.keys(listRates)[0],
+      toValue: 1,
+      toCurrency: Object.keys(listRates)[0],
+      rate: 1,
+    };
+  }
   updateHeaderUI();
   initialBodyUI();
 };
 
 const initialBodyUI = () => {
-  document.getElementById("main_currency-from-value").value =
-    bodyData.fromValue;
-  const selectFrom = document.getElementById("main_currency-from");
-  Object.keys(listSymbols).forEach((el) => {
-    selectFrom.add(new Option(`${listSymbols[el]}`, `${el}`));
-  });
-  document.getElementById("main_currency-to-value").value = bodyData.toValue;
-  const selectTo = document.getElementById("main_currency-to");
-  Object.keys(listSymbols).forEach((el) => {
-    selectTo.add(new Option(`${listSymbols[el]}`, `${el}`));
-  });
+  if (listSymbols) {
+    document.getElementById("main_currency-from-value").value =
+      bodyData.fromValue;
+    const selectFrom = document.getElementById("main_currency-from");
+    Object.keys(listSymbols).forEach((el) => {
+      selectFrom.add(new Option(`${listSymbols[el]}`, `${el}`));
+    });
+    document.getElementById("main_currency-to-value").value = bodyData.toValue;
+    const selectTo = document.getElementById("main_currency-to");
+    Object.keys(listSymbols).forEach((el) => {
+      selectTo.add(new Option(`${listSymbols[el]}`, `${el}`));
+    });
+  }
 };
 
 const updateHeaderUI = () => {
@@ -156,7 +179,7 @@ const updateHeaderUI = () => {
   document.getElementById("header_date").textContent = headerData.date;
 };
 
-window.addEventListener("load", async (event) => {
+window.addEventListener("load", async () => {
   document
     .getElementById("main_currency-from")
     .addEventListener("change", currencyFromChanged);

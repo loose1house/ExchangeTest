@@ -1,0 +1,282 @@
+* {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+*,
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+:focus,
+:active {
+  outline: none;
+}
+
+a:focus,
+a:active {
+  outline: none;
+}
+
+nav,
+footer,
+header,
+aside {
+  display: block;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  font-size: 100%;
+  line-height: 1;
+  font-size: 14px;
+  font-family: Inter-Medium;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+input,
+button,
+textarea {
+  font-family: ingerit;
+}
+
+input::-ms-clear {
+  display: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+
+a,
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+ul li {
+  list-style: none;
+}
+
+img {
+  vertical-align: top;
+  border: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+.wrapper {
+  min-height: 100%;
+  overflow: hidden;
+}
+
+@font-face {
+  font-family: Inter-Bold;
+  font-display: swap;
+  src: url(../fonts/Inter-Bold.ttf);
+}
+@font-face {
+  font-family: Inter-Light;
+  font-display: swap;
+  src: url(../fonts/Inter-Light.ttf);
+}
+@font-face {
+  font-family: Inter-Medium;
+  font-display: swap;
+  src: url(../fonts/Inter-Medium.ttf);
+}
+@font-face {
+  font-family: Inter-Regular;
+  font-display: swap;
+  src: url(../fonts/Inter-Regular.ttf);
+}
+@font-face {
+  font-family: Inter-SemiBold;
+  font-display: swap;
+  src: url(../fonts/Inter-SemiBold.ttf);
+}
+@font-face {
+  font-family: Roboto-Bold;
+  font-display: swap;
+  src: url(../fonts/Roboto-Bold.ttf);
+}
+@font-face {
+  font-family: Roboto-Light;
+  font-display: swap;
+  src: url(../fonts/Roboto-Light.ttf);
+}
+@font-face {
+  font-family: FuturaPT-Medium;
+  font-display: swap;
+  src: url(../fonts/FuturaPT-Medium.ttf);
+}
+._container {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.main_exchange_header {
+  display: flex;
+  flex-direction: column;
+  z-index: 1;
+}
+
+.wrapper {
+  position: relative;
+}
+
+.header_currency-description-from {
+  font-family: Roboto-Light;
+  font-size: 16px;
+  line-height: 137.5%;
+  color: rgba(55, 69, 74, 0.6);
+  display: flex;
+  flex-direction: row;
+  margin-top: 15px;
+}
+
+.header_currency-value-to {
+  margin-top: 15px;
+  font-family: Inter-Bold;
+  font-size: 36px;
+  line-height: 111.1111111111%;
+  color: #37454a;
+}
+
+.header_date-line {
+  font-family: Roboto-Light;
+  font-size: 13px;
+  line-height: 169.2307692308%;
+  color: rgba(55, 69, 74, 0.6);
+  margin-top: 15px;
+  display: flex;
+  flex-direction: row;
+}
+
+a:-webkit-any-link {
+  color: rgba(55, 69, 74, 0.6);
+}
+
+.main-line-vertical-border {
+  height: 20px;
+  border-right: 1px rgba(55, 69, 74, 0.6) solid;
+}
+
+.main-line {
+  border: 1px rgba(55, 69, 74, 0.6) solid;
+  border-radius: 6px;
+  height: 40px;
+  margin-top: 15px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.main-line input,
+.main-line select {
+  color: #37454a;
+}
+.main-line input {
+  padding: 1px 0px 1px 12px;
+}
+.main-line select {
+  width: 55%;
+  text-align: end;
+}
+
+.main-line:hover {
+  border-color: #202124;
+}
+
+.main-line-selected {
+  border: 1px #8ab4f8 solid;
+}
+
+.main-line-selected:hover {
+  border: 1px #8ab4f8 solid;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.popup {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: none;
+}
+
+.popup-content {
+  font-family: Inter-Bold;
+  font-size: 12px;
+  line-height: 133.3333333333%;
+  color: #37454a;
+  display: flex;
+  flex-direction: column;
+  border-radius: 15px;
+  background-color: white;
+  margin: 10% auto;
+  padding: 20px;
+  width: 30%;
+}
+
+.popup-content button {
+  display: block;
+  margin: 0 auto;
+}
+
+.show {
+  display: block;
+}
+
+h1 {
+  text-align: center;
+  color: rgba(178, 125, 178, 0.933);
+  margin-bottom: 10px;
+}
+
+#closePopup {
+  margin-top: 10px;
+  font-family: Inter-Bold;
+  font-size: 12px;
+  line-height: 133.3333333333%;
+  color: #37454a;
+  padding: 3px 5px;
+  border-radius: 3px;
+  border: 1px solid #37454a;
+  background-color: #ffffff;
+}
+
+/*# sourceMappingURL=style.css.map */

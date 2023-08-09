@@ -1,0 +1,17 @@
+$Raleway: (
+  Inter-Bold,
+  Inter-Light,
+  Inter-Medium,
+  Inter-Regular,
+  Inter-SemiBold,
+  Roboto-Bold,
+  Roboto-Light,
+  FuturaPT-Medium
+);
+@each $font in $Raleway {
+  @font-face {
+    font-family: #{$font};
+    font-display: swap;
+    src: url(../fonts/#{$font}.ttf);
+  }
+}
