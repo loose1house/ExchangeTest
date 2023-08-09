@@ -6,6 +6,7 @@ let headerData = {
   currencySymbolTo: "EUR",
   toValue: 0,
   date: "date",
+  error: false,
 };
 
 let bodyData = {
@@ -20,14 +21,18 @@ let listSymbols = {};
 let listRates = {};
 
 const getData = async (type, additionalParam) => {
-  const response = await fetch(
-    FIXER_HOST_API + type + "?access_key=" + API_KEY + additionalParam
-  );
-  if (response.ok) {
-    const responseJson = await response.json();
-    if (responseJson.success) {
-      return responseJson;
+  try {
+    const response = await fetch(
+      FIXER_HOST_API + type + "?access_key=" + API_KEY + additionalParam
+    );
+    if (response.ok) {
+      const responseJson = await response.json();
+      if (responseJson.success) {
+        return responseJson;
+      }
     }
+  } catch (error) {
+    return false;
   }
   return false;
 };
@@ -72,24 +77,23 @@ const valueToChanged = () => {
 };
 
 const getSymbols = async () => {
-  const { symbols } = await getData("/symbols", "");
+  const { symbols, success } = await getData("/symbols", "");
+  setError(!success);
   return symbols;
 };
 
-const getRates = async () => {
-  const { rates } = await getData("/latest", "");
-  return rates;
+const setError = (err) => {
+  bodyData.error = err;
+  document.getElementById("error-message").style.display = err
+    ? "block"
+    : "none";
 };
 
-// let getConvertion = async (param) => {
-//   const paramString = `&from=${param.from}&to=${param.to}&amount=${param.amount}`;
-//   console.log(paramString);
-//   const { query, info, date, result } = await getData("/convert", paramString);
-//   console.log(query);
-//   console.log(info);
-//   console.log(date);
-//   console.log(result);
-// };
+const getRates = async () => {
+  const { rates, success } = await getData("/latest", "");
+  setError(!success);
+  return rates;
+};
 
 const updateDateUI = () => {
   headerData.date = new Date();
