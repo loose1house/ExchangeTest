@@ -37,8 +37,6 @@ $text-color-grey-opacity: rgba(55, 69, 74, 0.6);
   margin-top: 15px;
   @include fontz(Inter-Bold, 36px, 40px);
   color: $base-text-color;
-  // display: flex;
-  // flex-direction: row;
 }
 
 .header_date-line {
@@ -77,8 +75,16 @@ a:-webkit-any-link {
   select {
     width: 55%;
     text-align: end;
+    overflow: hidden;
+    padding-right: 25px;
+    padding-left: 25px;
+    overflow: -moz-hidden-unscrollable;
+    background: url(../img/arrow_drop_down_grey.png) no-repeat right;
+    -webkit-appearance: none;
+    -moz-appearance: none;
   }
 }
+
 .main-line:hover {
   border-color: #202124;
 }
